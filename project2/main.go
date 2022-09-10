@@ -19,6 +19,8 @@ func main() {
 
 	// remember to close the file at the end of the program
 	defer f.Close()
+	// initialize slice list of students
+	var strSlice []string
 
 	// read csv values using csv.Reader
 	csvReader := csv.NewReader(f)
@@ -33,14 +35,30 @@ func main() {
 			log.Fatal(err)
 		}
 		// do something with read line
-		fmt.Printf("%+v\n", rec)
+		strSlice = append(strSlice, rec...)
+
+		// printing the slice
+		// fmt.Println(strSlice)
+
 	}
 
+	// finding the length,assigning it to a variable, and printing the variable
+	numStudents := len(strSlice)
+	fmt.Println(numStudents)
+
+	// Referring to a position in the slice
+	studentOne := strSlice[0]
+	fmt.Println(studentOne)
+
+	//Getting random seed
 	rand.Seed(time.Now().UnixNano())
-	names := []string{"a", "b", "c", "d", "e", "f", "g", "h"}
-	rand.Shuffle(len(names), func(i, j int) {
-		names[i], names[j] = names[j], names[i]
+
+	//Shuffling the slice
+	rand.Shuffle(len(strSlice), func(i, j int) {
+		strSlice[i], strSlice[j] = strSlice[j], strSlice[i]
 	})
-	fmt.Println(names)
+
+	//Printing the shuffled slice
+	fmt.Println(strSlice)
 
 }
